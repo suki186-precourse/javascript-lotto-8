@@ -17,3 +17,14 @@ export const calculateRank = (matchCount, hasBonus) => {
   }
   return null; // 2개 이하
 };
+
+// 총 당첨 금액 계산
+export const calculateTotalMoney = (rankCounts) => {
+  let totalMoney = 0;
+  totalMoney += rankCounts.FIRST * PRIZE.FIRST;
+  totalMoney += rankCounts.SECOND * PRIZE.SECOND;
+  totalMoney += rankCounts.THIRD * PRIZE.THIRD;
+  totalMoney += rankCounts.FOURTH * PRIZE.FOURTH;
+  totalMoney += rankCounts.FIFTH * PRIZE.FIFTH;
+  return totalMoney;
+};

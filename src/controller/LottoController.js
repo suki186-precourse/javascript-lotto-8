@@ -1,5 +1,6 @@
 import { COMMON } from "../constants/message.js";
 import LottoGame from "../domain/LottoGame.js";
+import { calculateTotalMoney } from "../utils/calculator.js";
 import { InputView } from "../view/InputView.js";
 import { OutputView } from "../view/OutputView.js";
 
@@ -67,6 +68,7 @@ class LottoController {
   // 4. 번호 비교, 등수 카운트 -> 출력
   #handleResult() {
     const rankCounts = this.#lottoGame.calculateResults();
+    const totalMoney = calculateTotalMoney(rankCounts); // 총 당첨 금액
 
     OutputView.printStatistics(rankCounts);
   }
