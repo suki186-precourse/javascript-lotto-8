@@ -1,4 +1,6 @@
 import { LOTTO } from "../constants/lotto.js";
+import { createLottoNumbers } from "../utils/lottoUtils.js";
+import Lotto from "./Lotto.js";
 
 class LottoGame {
   #lottoCount; // 발행 수량
@@ -17,6 +19,21 @@ class LottoGame {
   // 로또 수량 return
   getLottoCount() {
     return this.#lottoCount;
+  }
+
+  // 로또 수량만큼 로또 생성 -> lottos에 저장
+  createLottos() {
+    for (let i = 0; i < this.#lottoCount; i++) {
+      const numbers = createLottoNumbers();
+      const lotto = new Lotto(numbers);
+
+      this.#lottos.push(lotto);
+    }
+  }
+
+  // 로또 목록 return
+  getLottos() {
+    return this.#lottos;
   }
 }
 
