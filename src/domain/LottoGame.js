@@ -43,6 +43,35 @@ class LottoGame {
     this.#winningNumbers = winningNumbers;
     this.#bonusNumber = bonusNumber;
   }
+
+  // 당첨 번호 비교(로또 수량만큼) -> 등수별 횟수 카운트
+  calculateResults() {
+    // 등수별 당첨 횟수
+    const rankCounts = {
+      FIRST: 0,
+      SECOND: 0,
+      THIRD: 0,
+      FOURTH: 0,
+      FIFTH: 0,
+    };
+
+    this.#lottos.forEach((lotto) => {
+      // 로또와 당첨 번호 비교
+      const { matchCount, hasBonus } = compareLotto(
+        lotto,
+        this.#winningNumbers,
+        this.#bonusNumber
+      );
+
+      // 등수 계산 및 카운트
+      const rank = calculateRank(matchCount, hasBonus);
+      if (rank) {
+        rankCounts[rank] += 1;
+      }
+    });
+
+    return rankCounts;
+  }
 }
 
 export default LottoGame;
