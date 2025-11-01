@@ -1,4 +1,4 @@
-import { PRIZE } from "./lotto";
+import { PRIZE } from "./lotto.js";
 
 // 입력 메세지
 export const INPUT_MESSAGES = Object.freeze({
