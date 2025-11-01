@@ -14,4 +14,14 @@ export const OutputView = {
       Console.print(`[${numbers.join(", ")}]`);
     });
   },
+
+  // 당첨 통계 결과 출력
+  printStatistics(rankCounts) {
+    Console.print(OUTPUT_MESSAGES.STATISTICS_HEADER);
+    Console.print(OUTPUT_MESSAGES.FIFTH_PRIZE(rankCounts.FIFTH));
+    Console.print(OUTPUT_MESSAGES.FOURTH_PRIZE(rankCounts.FOURTH));
+    Console.print(OUTPUT_MESSAGES.THIRD_PRIZE(rankCounts.THIRD));
+    Console.print(OUTPUT_MESSAGES.SECOND_PRIZE(rankCounts.SECOND));
+    Console.print(OUTPUT_MESSAGES.FIRST_PRIZE(rankCounts.FIRST));
+  },
 };

@@ -1,3 +1,4 @@
+import { COMMON } from "../constants/message.js";
 import LottoGame from "../domain/LottoGame.js";
 import { InputView } from "../view/InputView.js";
 import { OutputView } from "../view/OutputView.js";
@@ -14,26 +15,29 @@ class LottoController {
 
     // ===== 3. 당첨 번호 처리
     await this.#handleWinningInfo();
+
+    // ===== 4. 당첨 판별 및 출력
+    this.#handleResult();
   }
 
-  // 단위 입력, 수량 계산, 수량 출력
+  // 1. 단위 입력, 수량 계산, 수량 출력
   async #handlePurchase() {
     const purchaseAmount = await InputView.readPurchaseAmount();
     this.#lottoGame = new LottoGame(purchaseAmount);
 
     const lottoCount = this.#lottoGame.getLottoCount();
-    OutputView.printTicketCount(lottoCount);
+    OutputView.printLottoCount(lottoCount);
   }
 
-  // 로또 배열 생성, 출력
+  // 2. 로또 배열 생성, 출력
   #handleCreateLottos() {
-    this.#lottoGame.issueLottos();
+    this.#lottoGame.createLottos();
 
     const lottos = this.#lottoGame.getLottos();
-    OutputView.printTickets(lottos);
+    OutputView.printLottoList(lottos);
   }
 
-  // 당첨/보너스 번호 입력 -> 변환 후 저장
+  // 3. 당첨/보너스 번호 입력 -> 변환 후 저장
   async #handleWinningInfo() {
     const winningNumbers = await this.#getWinningNumbers();
     const bonusNumber = await this.#getBonusNumber();
@@ -58,6 +62,13 @@ class LottoController {
     const bonusNumberInput = await InputView.readBonusNumber();
 
     return Number(bonusNumberInput);
+  }
+
+  // 4. 번호 비교, 등수 카운트 -> 출력
+  #handleResult() {
+    const rankCounts = this.#lottoGame.calculateResults();
+
+    OutputView.printStatistics(rankCounts);
   }
 }
 

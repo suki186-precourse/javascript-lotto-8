@@ -1,5 +1,6 @@
 import { LOTTO } from "../constants/lotto.js";
-import { createLottoNumbers } from "../utils/lottoUtils.js";
+import { calculateRank } from "../utils/calculator.js";
+import { compareLotto, createLottoNumbers } from "../utils/lottoUtils.js";
 import Lotto from "./Lotto.js";
 
 class LottoGame {
