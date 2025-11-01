@@ -9,4 +9,20 @@ export const InputView = {
     );
     return purchaseAmount;
   },
+
+  // ===== 당첨 번호 입력
+  async readWinningNumbers() {
+    const winningNumbers = await Console.readLineAsync(
+      INPUT_MESSAGES.WINNING_NUMBERS
+    );
+    return winningNumbers;
+  },
+
+  // ===== 보너스 번호 입력
+  async readBonusNumber() {
+    const bonusNumber = await Console.readLineAsync(
+      INPUT_MESSAGES.BONUS_NUMBER
+    );
+    return bonusNumber;
+  },
 };

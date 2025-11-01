@@ -5,6 +5,8 @@ import Lotto from "./Lotto.js";
 class LottoGame {
   #lottoCount; // 발행 수량
   #lottos; // 발행된 로또 목록
+  #winningNumbers; // 당첨 번호
+  #bonusNumber; // 보너스 번호
 
   constructor(purchaseAmount) {
     this.#lottoCount = this.#calculateLottoCount(Number(purchaseAmount));
@@ -34,6 +36,12 @@ class LottoGame {
   // 로또 목록 return
   getLottos() {
     return this.#lottos;
+  }
+
+  // 당첨 번호, 보너스 번호 저장
+  setWinningInfo(winningNumbers, bonusNumber) {
+    this.#winningNumbers = winningNumbers;
+    this.#bonusNumber = bonusNumber;
   }
 }
 
