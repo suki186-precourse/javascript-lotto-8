@@ -16,6 +16,14 @@ class LottoController {
     // 발행 수량 출력
     const lottoCount = this.#lottoGame.getLottoCount();
     OutputView.printLottoCount(lottoCount);
+
+    // ===== 2. 로또 발행
+    // 로또 배열 생성
+    this.#lottoGame.createLottos();
+    const lottos = this.#lottoGame.getLottos();
+
+    // 로또 배열 출력
+    OutputView.printLottoList(lottos);
   }
 }
 

@@ -6,4 +6,12 @@ export const OutputView = {
   printLottoCount(count) {
     Console.print(OUTPUT_MESSAGES.PURCHASE_COUNT(count));
   },
+
+  // 로또 발행 결과 출력
+  printLottoList(lottos) {
+    lottos.forEach((lotto) => {
+      const numbers = lotto.getSortedNumbers();
+      Console.print(`[${numbers.join(", ")}]`);
+    });
+  },
 };
