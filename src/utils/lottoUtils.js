@@ -9,3 +9,18 @@ export const createLottoNumbers = () => {
     LOTTO.NUMBER_COUNT
   );
 };
+
+// 로또 하나와 당첨/보너스 번호 비교
+export const compareLotto = (lotto, winningNumbers, bonusNumber) => {
+  const lottoNumbers = lotto.getNumbers();
+
+  // 일치하는 번호 개수 계산
+  const matchCount = lottoNumbers.filter((number) =>
+    winningNumbers.includes(number)
+  ).length;
+
+  // 보너스 번호 일치 여부 계산
+  const hasBonus = lottoNumbers.includes(bonusNumber);
+
+  return { matchCount, hasBonus };
+};
