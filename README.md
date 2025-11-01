@@ -90,7 +90,8 @@ src/
 │   └── calculator.js       # 수익률, 당첨금 계산
 │
 └── constants/
-    └── constants.js        # 상수
+    ├── message.js          # 입출력 관련 상수
+    └── lotto.js            # 로또 관련 상수
 ```
 
 ---
