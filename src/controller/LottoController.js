@@ -7,23 +7,27 @@ class LottoController {
 
   async play() {
     // ===== 1. 로또 구매 금액 처리
-    // 1,000원 단위 입력 받기
-    const purchaseAmount = await InputView.readPurchaseAmount();
-
-    // 발행 수량 계산 (LottoGame 생성)
-    this.#lottoGame = new LottoGame(purchaseAmount);
-
-    // 발행 수량 출력
-    const lottoCount = this.#lottoGame.getLottoCount();
-    OutputView.printLottoCount(lottoCount);
+    await this.#handlePurchase();
 
     // ===== 2. 로또 발행
-    // 로또 배열 생성
-    this.#lottoGame.createLottos();
-    const lottos = this.#lottoGame.getLottos();
+    this.#handleCreateLottos();
+  }
 
-    // 로또 배열 출력
-    OutputView.printLottoList(lottos);
+  // 단위 입력, 수량 계산, 수량 출력
+  async #handlePurchase() {
+    const purchaseAmount = await InputView.readPurchaseAmount();
+    this.#lottoGame = new LottoGame(purchaseAmount);
+
+    const lottoCount = this.#lottoGame.getLottoCount();
+    OutputView.printTicketCount(lottoCount);
+  }
+
+  // 로또 배열 생성, 출력
+  #handleCreateLottos() {
+    this.#lottoGame.issueLottos();
+
+    const lottos = this.#lottoGame.getLottos();
+    OutputView.printTickets(lottos);
   }
 }
 
