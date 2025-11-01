@@ -1,5 +1,6 @@
 import LottoGame from "../domain/LottoGame.js";
 import { InputView } from "../view/InputView.js";
+import { OutputView } from "../view/OutputView.js";
 
 class LottoController {
   #lottoGame; // LottoGame 인스턴스
@@ -12,9 +13,9 @@ class LottoController {
     // 발행 수량 계산 (LottoGame 생성)
     this.#lottoGame = new LottoGame(purchaseAmount);
 
-    // 테스트용 출력
+    // 발행 수량 출력
     const lottoCount = this.#lottoGame.getLottoCount();
-    console.log(lottoCount);
+    OutputView.printLottoCount(lottoCount);
   }
 }
 
