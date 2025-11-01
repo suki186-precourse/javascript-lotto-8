@@ -1,6 +1,9 @@
 import { COMMON } from "../constants/message.js";
 import LottoGame from "../domain/LottoGame.js";
-import { calculateTotalMoney } from "../utils/calculator.js";
+import {
+  calculateReturnRate,
+  calculateTotalMoney,
+} from "../utils/calculator.js";
 import { InputView } from "../view/InputView.js";
 import { OutputView } from "../view/OutputView.js";
 
@@ -17,7 +20,7 @@ class LottoController {
     // ===== 3. 당첨 번호 처리
     await this.#handleWinningInfo();
 
-    // ===== 4. 당첨 판별 및 출력
+    // ===== 4, 5 당첨 판별 및 통계 결과, 수익률 출력
     this.#handleResult();
   }
 
@@ -65,12 +68,16 @@ class LottoController {
     return Number(bonusNumberInput);
   }
 
-  // 4. 번호 비교, 등수 카운트 -> 출력
+  // 4, 5. 번호 비교, 등수 카운트 -> 출력
   #handleResult() {
     const rankCounts = this.#lottoGame.calculateResults();
     const totalMoney = calculateTotalMoney(rankCounts); // 총 당첨 금액
 
+    const purchaseAmount = this.#lottoGame.getPurchaseAmount();
+    const returnRate = calculateReturnRate(totalMoney, purchaseAmount); // 수익률
+
     OutputView.printStatistics(rankCounts);
+    OutputView.printReturnRate(returnRate);
   }
 }
 

@@ -8,8 +8,10 @@ class LottoGame {
   #lottos; // 발행된 로또 목록
   #winningNumbers; // 당첨 번호
   #bonusNumber; // 보너스 번호
+  #purchaseAmount; // 구입 금액
 
   constructor(purchaseAmount) {
+    this.#purchaseAmount = Number(purchaseAmount);
     this.#lottoCount = this.#calculateLottoCount(Number(purchaseAmount));
     this.#lottos = [];
   }
@@ -17,6 +19,11 @@ class LottoGame {
   // 구입 금액 -> 로또 수량 계산
   #calculateLottoCount(purchaseAmount) {
     return purchaseAmount / LOTTO.PRICE;
+  }
+
+  // 구입 금액 return
+  getPurchaseAmount() {
+    return this.#purchaseAmount;
   }
 
   // 로또 수량 return

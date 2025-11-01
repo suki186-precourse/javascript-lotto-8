@@ -24,4 +24,9 @@ export const OutputView = {
     Console.print(OUTPUT_MESSAGES.SECOND_PRIZE(rankCounts.SECOND));
     Console.print(OUTPUT_MESSAGES.FIRST_PRIZE(rankCounts.FIRST));
   },
+
+  // 수익률 출력
+  printReturnRate(returnRate) {
+    Console.print(OUTPUT_MESSAGES.RETURN_RATE(returnRate));
+  },
 };

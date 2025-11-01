@@ -1,3 +1,5 @@
+import { PRIZE } from "../constants/lotto.js";
+
 // 일치하는 번호의 개수에 따른 등수 판별
 export const calculateRank = (matchCount, hasBonus) => {
   if (matchCount === 6) {
@@ -27,4 +29,12 @@ export const calculateTotalMoney = (rankCounts) => {
   totalMoney += rankCounts.FOURTH * PRIZE.FOURTH;
   totalMoney += rankCounts.FIFTH * PRIZE.FIFTH;
   return totalMoney;
+};
+
+// 수익률 계산
+export const calculateReturnRate = (totalMoney, purchaseAmount) => {
+  const rate = (totalMoney / purchaseAmount) * 100;
+
+  // 소수점 둘째 자리에서 반올림(무조건 첫째자리까지)
+  return rate.toFixed(1);
 };

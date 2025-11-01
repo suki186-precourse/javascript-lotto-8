@@ -21,7 +21,7 @@ export const OUTPUT_MESSAGES = Object.freeze({
     `5개 일치, 보너스 볼 일치 (${PRIZE.SECOND.toLocaleString()}원) - ${count}개`,
   FIRST_PRIZE: (count) =>
     `6개 일치 (${PRIZE.FIRST.toLocaleString()}원) - ${count}개`,
-  PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
+  RETURN_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
 });
 
 /**
