@@ -1,4 +1,4 @@
-import { PRIZE } from "./lotto.js";
+import { LOTTO, PRIZE } from "./lotto.js";
 
 // 입력 메세지
 export const INPUT_MESSAGES = Object.freeze({
@@ -29,4 +29,14 @@ export const OUTPUT_MESSAGES = Object.freeze({
  */
 export const COMMON = Object.freeze({
   DELIMITERS: ",",
+});
+
+// ===== 예외 처리
+export const ERROR = "[ERROR]";
+
+export const ERROR_MESSAGES = Object.freeze({
+  // 1. 로또 구입 금액
+  INVALID_PURCHASE_AMOUNT: `구입 금액은 정수만 입력 가능합니다.`,
+  UNDER_MIN_PURCHASE_AMOUNT: `구입 금액은 ${LOTTO.PRICE}원 이상이어야 합니다.`,
+  PURCHASE_AMOUNT_UNIT: `구입 금액은 ${LOTTO.PRICE}원 단위로 입력 가능합니다.`,
 });

@@ -29,4 +29,9 @@ export const OutputView = {
   printReturnRate(returnRate) {
     Console.print(OUTPUT_MESSAGES.RETURN_RATE(returnRate));
   },
+
+  // 에러메세지 출력
+  printError(error) {
+    Console.print(error.message);
+  },
 };

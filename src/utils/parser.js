@@ -1,4 +1,4 @@
-import { COMMON } from "../constants/message";
+import { COMMON } from "../constants/message.js";
 
 // 당첨 번호 입력 자료형 변환 함수 (string -> number[])
 export const parseWinningNumbers = (stringNumbers) => {

@@ -4,6 +4,7 @@ import {
   calculateTotalMoney,
 } from "../utils/calculator.js";
 import { parseBonusNumber, parseWinningNumbers } from "../utils/parser.js";
+import { validatePurchaseAmount } from "../utils/validators.js";
 import { InputView } from "../view/InputView.js";
 import { OutputView } from "../view/OutputView.js";
 
@@ -26,11 +27,22 @@ class LottoController {
 
   // 1. 단위 입력, 수량 계산, 수량 출력
   async #handlePurchase() {
-    const purchaseAmount = await InputView.readPurchaseAmount();
-    this.#lottoGame = new LottoGame(purchaseAmount);
+    while (true) {
+      const purchaseAmount = await InputView.readPurchaseAmount();
 
-    const lottoCount = this.#lottoGame.getLottoCount();
-    OutputView.printLottoCount(lottoCount);
+      try {
+        validatePurchaseAmount(purchaseAmount); // 유효성 검증
+
+        this.#lottoGame = new LottoGame(purchaseAmount);
+
+        const lottoCount = this.#lottoGame.getLottoCount();
+        OutputView.printLottoCount(lottoCount);
+
+        break;
+      } catch (error) {
+        OutputView.printError(error);
+      }
+    }
   }
 
   // 2. 로또 배열 생성, 출력
