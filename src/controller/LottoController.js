@@ -4,6 +4,7 @@ import {
   calculateReturnRate,
   calculateTotalMoney,
 } from "../utils/calculator.js";
+import { parseBonusNumber, parseWinningNumbers } from "../utils/parser.js";
 import { InputView } from "../view/InputView.js";
 import { OutputView } from "../view/OutputView.js";
 
@@ -49,23 +50,18 @@ class LottoController {
     this.#lottoGame.setWinningInfo(winningNumbers, bonusNumber);
   }
 
-  // 당첨 번호 (string -> number[])
+  // 당첨 번호 변환 (string -> number[])
   async #getWinningNumbers() {
     const winningNumbersInput = await InputView.readWinningNumbers();
 
-    // 구분자(,) 기준 분리
-    const winningNumbers = winningNumbersInput
-      .split(COMMON.DELIMITERS)
-      .map(Number);
-
-    return winningNumbers;
+    return parseWinningNumbers(winningNumbersInput);
   }
 
   // 보너스 번호 (string -> number)
   async #getBonusNumber() {
     const bonusNumberInput = await InputView.readBonusNumber();
 
-    return Number(bonusNumberInput);
+    return parseBonusNumber(bonusNumberInput);
   }
 
   // 4, 5. 번호 비교, 등수 카운트 -> 출력

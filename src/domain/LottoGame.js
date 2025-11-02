@@ -12,7 +12,7 @@ class LottoGame {
 
   constructor(purchaseAmount) {
     this.#purchaseAmount = Number(purchaseAmount);
-    this.#lottoCount = this.#calculateLottoCount(Number(purchaseAmount));
+    this.#lottoCount = this.#calculateLottoCount(this.#purchaseAmount);
     this.#lottos = [];
   }
 
