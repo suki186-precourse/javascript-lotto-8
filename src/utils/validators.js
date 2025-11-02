@@ -49,7 +49,7 @@ const validateWinningNumbersFormat = (input) => {
   }
 
   if (
-    COMMON.INVALID_WINNING_NUMBER_REGEX.test(input) ||
+    COMMON.INVALID_NUMBER_REGEX.test(input) ||
     input.includes(",,") ||
     input.endsWith(",")
   ) {
@@ -78,4 +78,34 @@ export const validateWinningNumbers = (winningNumbers) => {
 
   const numbers = winningNumbers.split(",").map(Number);
   validateWinningNumbersEach(numbers);
+};
+
+// ===== 3. 보너스 번호 유효성 검증
+// 공백/빈 값, 정수 아님 체크
+const validateBonusNumberFormat = (input) => {
+  if (input.trim() === "") {
+    errorMessage(ERROR_MESSAGES.EMPTY_BONUS_NUMBER);
+  }
+
+  if (COMMON.INVALID_NUMBER_REGEX.test(input)) {
+    errorMessage(ERROR_MESSAGES.INVALID_BONUS_COUNT);
+  }
+};
+
+// 범위 초과, 중복 체크
+const validateBonusNumberEach = (input, winningNumbers) => {
+  if (input < LOTTO.MIN_NUMBER || input > LOTTO.MAX_NUMBER) {
+    errorMessage(ERROR_MESSAGES.INVALID_BONUS_RANGE);
+  }
+
+  if (winningNumbers.includes(input)) {
+    errorMessage(ERROR_MESSAGES.DUPLICATE_BONUS);
+  }
+};
+
+export const validateBonusNumber = (bonusNumber, winningNumbers) => {
+  validateBonusNumberFormat(bonusNumber);
+
+  const number = Number(bonusNumber);
+  validateBonusNumberEach(number, winningNumbers);
 };

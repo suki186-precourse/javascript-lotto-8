@@ -26,11 +26,11 @@ export const OUTPUT_MESSAGES = Object.freeze({
 
 /**
  * @param DELIMITERS 구분자
- * @param WINNING_NUMBER_REGEX 잘못된 로또 번호 정규식
+ * @param INVALID_NUMBER_REGEX 잘못된 로또 번호 정규식
  */
 export const COMMON = Object.freeze({
   DELIMITERS: ",",
-  INVALID_WINNING_NUMBER_REGEX: /[^0-9,]/,
+  INVALID_NUMBER_REGEX: /[^0-9,]/,
 });
 
 // ===== 예외 처리
@@ -48,4 +48,10 @@ export const ERROR_MESSAGES = Object.freeze({
   INVALID_NUMBER_RANGE: `당첨 번호는 ${LOTTO.MIN_NUMBER}~${LOTTO.MAX_NUMBER} 사이의 숫자여야 합니다.`,
   INVALID_NUMBER_COUNT: `당첨 번호는 ${LOTTO.NUMBER_COUNT}개만 입력 가능합니다.`,
   DUPLICATE_NUMBERS: `당첨 번호는 중복될 수 없습니다.`,
+
+  // 3. 보너스 번호
+  INVALID_BONUS_COUNT: `보너스 번호는 1개의 정수여야 합니다.`,
+  INVALID_BONUS_RANGE: `보너스 번호는 ${LOTTO.MIN_NUMBER}~${LOTTO.MAX_NUMBER} 사이의 숫자여야 합니다.`,
+  EMPTY_BONUS_NUMBER: `보너스 번호를 입력해 주세요.`,
+  DUPLICATE_BONUS: `보너스 번호는 당첨 번호와 중복될 수 없습니다.`,
 });

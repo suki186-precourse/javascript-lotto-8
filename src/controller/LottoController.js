@@ -5,6 +5,7 @@ import {
 } from "../utils/calculator.js";
 import { parseBonusNumber, parseWinningNumbers } from "../utils/parser.js";
 import {
+  validateBonusNumber,
   validatePurchaseAmount,
   validateWinningNumbers,
 } from "../utils/validators.js";
@@ -59,7 +60,7 @@ class LottoController {
   // 3. 당첨/보너스 번호 입력 -> 변환 후 저장
   async #handleWinningInfo() {
     const winningNumbers = await this.#getWinningNumbers();
-    const bonusNumber = await this.#getBonusNumber();
+    const bonusNumber = await this.#getBonusNumber(winningNumbers);
 
     this.#lottoGame.setWinningInfo(winningNumbers, bonusNumber);
   }
@@ -80,10 +81,18 @@ class LottoController {
   }
 
   // 보너스 번호 (string -> number)
-  async #getBonusNumber() {
-    const bonusNumberInput = await InputView.readBonusNumber();
+  async #getBonusNumber(winningNumbers) {
+    while (true) {
+      const bonusNumberInput = await InputView.readBonusNumber();
 
-    return parseBonusNumber(bonusNumberInput);
+      try {
+        validateBonusNumber(bonusNumberInput, winningNumbers);
+
+        return parseBonusNumber(bonusNumberInput);
+      } catch (error) {
+        OutputView.printError(error);
+      }
+    }
   }
 
   // 4, 5. 번호 비교, 등수 카운트
