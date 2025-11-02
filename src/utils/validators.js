@@ -1,5 +1,5 @@
 import { LOTTO } from "../constants/lotto.js";
-import { ERROR, ERROR_MESSAGES } from "../constants/message.js";
+import { COMMON, ERROR, ERROR_MESSAGES } from "../constants/message.js";
 
 // 에러메세지 형식
 const errorMessage = (message) => {
@@ -48,7 +48,11 @@ const validateWinningNumbersFormat = (input) => {
     errorMessage(ERROR_MESSAGES.EMPTY_WINNING_NUMBERS);
   }
 
-  if (/[^0-9,]/.test(input) || input.includes(",,") || input.endsWith(",")) {
+  if (
+    COMMON.INVALID_WINNING_NUMBER_REGEX.test(input) ||
+    input.includes(",,") ||
+    input.endsWith(",")
+  ) {
     errorMessage(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
   }
 };

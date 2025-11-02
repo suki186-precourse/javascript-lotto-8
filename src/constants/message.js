@@ -26,9 +26,11 @@ export const OUTPUT_MESSAGES = Object.freeze({
 
 /**
  * @param DELIMITERS 구분자
+ * @param WINNING_NUMBER_REGEX 잘못된 로또 번호 정규식
  */
 export const COMMON = Object.freeze({
   DELIMITERS: ",",
+  INVALID_WINNING_NUMBER_REGEX: /[^0-9,]/,
 });
 
 // ===== 예외 처리
