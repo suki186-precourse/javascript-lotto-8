@@ -1,4 +1,5 @@
 import { LOTTO } from "../constants/lotto.js";
+import { ERROR, ERROR_MESSAGES } from "../constants/message.js";
 
 class Lotto {
   #numbers;
@@ -9,10 +10,23 @@ class Lotto {
   }
 
   #validate(numbers) {
+    // 6개인지
     if (numbers.length !== LOTTO.NUMBER_COUNT) {
-      throw new Error(
-        `[ERROR] 로또 번호는 ${LOTTO.NUMBER_COUNT}개여야 합니다.`
-      );
+      throw new Error(`${ERROR} ${ERROR_MESSAGES.INVALID_NUMBER_COUNT}`);
+    }
+
+    // 중복된 번호가 있는지
+    const uniqueNumbers = new Set(numbers);
+    if (uniqueNumbers.size !== numbers.length) {
+      throw new Error(`${ERROR} ${ERROR_MESSAGES.DUPLICATE_NUMBERS}`);
+    }
+
+    // 1~45 범위 밖의 숫자가 있는지
+    const validRange = numbers.some(
+      (num) => num < LOTTO.MIN_NUMBER || num > LOTTO.MAX_NUMBER
+    );
+    if (validRange) {
+      throw new Error(`${ERROR} ${ERROR_MESSAGES.INVALID_NUMBER_RANGE}`);
     }
   }
 
