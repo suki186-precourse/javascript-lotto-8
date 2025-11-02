@@ -1,4 +1,3 @@
-import { COMMON } from "../constants/message.js";
 import LottoGame from "../domain/LottoGame.js";
 import {
   calculateReturnRate,
@@ -64,7 +63,7 @@ class LottoController {
     return parseBonusNumber(bonusNumberInput);
   }
 
-  // 4, 5. 번호 비교, 등수 카운트 -> 출력
+  // 4, 5. 번호 비교, 등수 카운트
   #handleResult() {
     const rankCounts = this.#lottoGame.calculateResults();
     const totalMoney = calculateTotalMoney(rankCounts); // 총 당첨 금액
@@ -72,6 +71,11 @@ class LottoController {
     const purchaseAmount = this.#lottoGame.getPurchaseAmount();
     const returnRate = calculateReturnRate(totalMoney, purchaseAmount); // 수익률
 
+    this.#printResult(rankCounts, returnRate);
+  }
+
+  // 통계, 수익률 출력
+  #printResult(rankCounts, returnRate) {
     OutputView.printStatistics(rankCounts);
     OutputView.printReturnRate(returnRate);
   }
