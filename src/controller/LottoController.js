@@ -4,7 +4,10 @@ import {
   calculateTotalMoney,
 } from "../utils/calculator.js";
 import { parseBonusNumber, parseWinningNumbers } from "../utils/parser.js";
-import { validatePurchaseAmount } from "../utils/validators.js";
+import {
+  validatePurchaseAmount,
+  validateWinningNumbers,
+} from "../utils/validators.js";
 import { InputView } from "../view/InputView.js";
 import { OutputView } from "../view/OutputView.js";
 
@@ -63,9 +66,17 @@ class LottoController {
 
   // 당첨 번호 변환 (string -> number[])
   async #getWinningNumbers() {
-    const winningNumbersInput = await InputView.readWinningNumbers();
+    while (true) {
+      const winningNumbersInput = await InputView.readWinningNumbers();
 
-    return parseWinningNumbers(winningNumbersInput);
+      try {
+        validateWinningNumbers(winningNumbersInput); // 유효성 검증
+
+        return parseWinningNumbers(winningNumbersInput);
+      } catch (error) {
+        OutputView.printError(error);
+      }
+    }
   }
 
   // 보너스 번호 (string -> number)

@@ -40,3 +40,38 @@ export const validatePurchaseAmount = (purchaseAmount) => {
   validateMinAmount(amountNumber);
   validateAmountUnit(amountNumber);
 };
+
+// ===== 2. 당첨 번호 유효성 검증
+// 공백/빈 값, 쉼표(,) 외 다른 구분자, 정수 아님 체크
+const validateWinningNumbersFormat = (input) => {
+  if (input.trim() === "") {
+    errorMessage(ERROR_MESSAGES.EMPTY_WINNING_NUMBERS);
+  }
+
+  if (/[^0-9,]/.test(input) || input.includes(",,") || input.endsWith(",")) {
+    errorMessage(ERROR_MESSAGES.INVALID_WINNING_NUMBERS);
+  }
+};
+
+// 개수 오류, 범위 초과, 중복 체크
+const validateWinningNumbersEach = (input) => {
+  if (input.length !== LOTTO.NUMBER_COUNT) {
+    errorMessage(ERROR_MESSAGES.INVALID_NUMBER_COUNT);
+  }
+
+  if (input.some((n) => n < LOTTO.MIN_NUMBER || n > LOTTO.MAX_NUMBER)) {
+    errorMessage(ERROR_MESSAGES.INVALID_NUMBER_RANGE);
+  }
+
+  const uniqueNumbers = new Set(input);
+  if (uniqueNumbers.size !== input.length) {
+    errorMessage(ERROR_MESSAGES.DUPLICATE_NUMBERS);
+  }
+};
+
+export const validateWinningNumbers = (winningNumbers) => {
+  validateWinningNumbersFormat(winningNumbers);
+
+  const numbers = winningNumbers.split(",").map(Number);
+  validateWinningNumbersEach(numbers);
+};
