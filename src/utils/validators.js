@@ -49,7 +49,7 @@ const validateWinningNumbersFormat = (input) => {
   }
 
   if (
-    COMMON.INVALID_NUMBER_REGEX.test(input) ||
+    COMMON.INVALID_WINNING_NUMBER_REGEX.test(input) ||
     input.includes(",,") ||
     input.endsWith(",")
   ) {
@@ -87,7 +87,7 @@ const validateBonusNumberFormat = (input) => {
     errorMessage(ERROR_MESSAGES.EMPTY_BONUS_NUMBER);
   }
 
-  if (COMMON.INVALID_NUMBER_REGEX.test(input)) {
+  if (COMMON.INVALID_BONUS_NUMBER_REGEX.test(input)) {
     errorMessage(ERROR_MESSAGES.INVALID_BONUS_COUNT);
   }
 };

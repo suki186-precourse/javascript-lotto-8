@@ -30,7 +30,8 @@ export const OUTPUT_MESSAGES = Object.freeze({
  */
 export const COMMON = Object.freeze({
   DELIMITERS: ",",
-  INVALID_NUMBER_REGEX: /[^0-9,]/,
+  INVALID_WINNING_NUMBER_REGEX: /[^0-9,]/,
+  INVALID_BONUS_NUMBER_REGEX: /[^0-9]/,
 });
 
 // ===== 예외 처리
