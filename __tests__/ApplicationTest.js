@@ -91,7 +91,44 @@ describe("로또 테스트", () => {
     });
   });
 
-  test("예외 테스트", async () => {
-    await runException("1000j");
+  describe("구입 금액 예외 테스트", () => {
+    const purchaseErrors = [
+      ["1000j", "문자 포함"],
+      ["1500", "1000원 단위 아님"],
+      ["500", "1000원 미만"],
+      ["", "빈 값"],
+      [" ", "공백"],
+    ];
+
+    test.each(purchaseErrors)(
+      "잘못된 구입 금액 입력 시 [ERROR]를 출력하고 재입력 받는다.",
+      async (input) => {
+        await runException(input);
+      }
+    );
+  });
+
+  test("당첨 번호 예외 테스트 (중복된 당첨 번호)", async () => {
+    const logSpy = getLogSpy();
+    mockRandoms([[1, 2, 3, 4, 5, 6]]);
+
+    mockQuestions(["1000", "1,2,3,4,5,5", "1,2,3,4,5,6", "7"]);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+  });
+
+  test("보너스 번호 예외 테스트 (당첨 번호와 중복된 번호)", async () => {
+    const logSpy = getLogSpy();
+    mockRandoms([[1, 2, 3, 4, 5, 6]]);
+
+    mockQuestions(["1000", "1,2,3,4,5,6", "6", "7"]);
+
+    const app = new App();
+    await app.run();
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
   });
 });
